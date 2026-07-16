@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSG45 INBOXING | Oggy's Intelligence Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800;900&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-image: url('1.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* Cartoon Text Shadow style */
+        .cartoon-shadow {
+            text-shadow: 2px 2px 0px rgba(15, 23, 42, 0.95);
+        }
+        
+        .bubble-border {
+            border: 3px solid #0f172a;
+        }
+
+        /* Custom Scrollbars */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; border: 2px solid #0f172a; }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide { animation: slideIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
+        
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-bounce-slow { animation: bounceSlow 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen selection:bg-blue-500/40 overflow-x-hidden custom-scrollbar bg-slate-950 relative text-xs">
+
+    <!-- Fixed Glassmorphic Background Overlay to keep text perfectly legible -->
+    <div class="fixed inset-0 bg-slate-950/75 backdrop-blur-[2px] z-0 pointer-events-none"></div>
+
+    <!-- Fixed Dancing Puppets (2.gif) at bottom-right of viewport (Scaled smaller) -->
+    <div class="fixed bottom-3 right-3 z-40 pointer-events-none hidden sm:flex flex-col items-center animate-bounce-slow">
+        <div class="bg-yellow-400 text-slate-900 text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-xl border-2 border-slate-900 shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] mb-1 scale-90">
+            Oggy &amp; Puppets Dancing! 🕺
+        </div>
+        <img src="2.gif" class="w-20 h-20 md:w-24 md:h-24 object-contain filter drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]" alt="Oggy Puppets Dancing" />
+    </div>
+
+    <!-- 100% Inbox Celebratory Pop-up Widget (3.gif) with a Cross Button -->
+    <div id="oggy-celebration" class="fixed top-16 right-4 z-50 transform translate-x-96 opacity-0 transition-all duration-500 pointer-events-none max-w-xs">
+        <div class="bg-gradient-to-br from-yellow-400 to-amber-300 border-3 border-slate-900 rounded-[1.5rem] p-4 shadow-[6px_6px_0px_#0f172a] flex flex-col items-center text-center text-slate-900 relative pointer-events-auto">
+            <!-- Dismiss Celebration Button -->
+            <button id="close-celebration-btn" class="absolute top-2 right-2 w-6 h-6 bg-slate-900 border-2 border-slate-950 rounded-full flex items-center justify-center hover:bg-slate-800 transition-all text-white active:scale-90" title="Close Notification">
+                <i class="fa-solid fa-xmark text-[10px]"></i>
+            </button>
+            
+            <!-- Retro Cartoon speech bubble -->
+            <div class="absolute -top-5 -left-2 bg-white border-3 border-slate-900 rounded-xl px-3 py-1 font-black text-[9px] uppercase tracking-wider shadow-[2px_2px_0px_#0f172a] rotate-[-4deg] text-blue-600 animate-pulse">
+                "100% INBOX! MEOWWW!" 🐾
+            </div>
+            <img src="3.gif" alt="Oggy Celebrate" class="w-24 h-24 object-contain mb-2 rounded-xl border-3 border-slate-900 bg-sky-200 shadow-inner" />
+            <h4 class="font-black text-sm leading-tight uppercase tracking-tight text-slate-950">Yaaaaaa-hoooo! 100% Delivery!</h4>
+            <p class="text-[10px] font-bold text-slate-800 mt-0.5">Oggy caught all the cockroaches! No spam detected across any of your 12 nodes!</p>
+        </div>
+    </div>
+
+    <div class="relative z-10 flex min-h-screen">
+        <!-- Sidebar (Oggy Playhouse Styled - Made narrower) -->
+        <aside class="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-[#0a1024] to-[#040714] border-r-4 border-slate-900 p-5 flex flex-col gap-6 hidden lg:flex z-50">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center shadow-[3px_3px_0px_#0f172a] border-2 border-slate-900 animate-bounce-slow">
+                    <i class="fa-solid fa-cat text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-lg tracking-tighter text-white leading-none cartoon-shadow">OGGY'S</h1>
+                    <p class="text-[9px] uppercase tracking-[0.25em] font-black text-blue-400">INBOX SYSTEM</p>
+                </div>
+            </div>
+
+            <nav class="flex flex-col gap-2">
+                <div class="text-[9px] uppercase font-black text-slate-400 tracking-widest px-3 mb-1">Core Controls</div>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-blue-500 text-white shadow-[3px_3px_0px_#0f172a] border-2 border-slate-900 hover:bg-blue-400 transition-all">
+                    <i class="fa-solid fa-cookie-bite text-sm"></i>
+                    <span class="font-black text-xs tracking-tight uppercase">Subject Tracker</span>
+                </a>
+                <a href="#common-section" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] transition-all">
+                    <i class="fa-solid fa-chart-bar text-sm text-amber-400"></i>
+                    <span class="font-black text-xs tracking-tight uppercase">Jack's Stats</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto p-4 bg-slate-950/60 rounded-2xl border-3 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
+                <p class="text-[9px] text-slate-400 mb-2 uppercase tracking-[0.15em] font-black">House Security</p>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-[10px] font-black">
+                        <span class="text-slate-400">Google API:</span>
+                        <span class="text-emerald-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                            ACTIVE
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between text-[10px] font-black">
+                        <span class="text-slate-400">Cats Loaded:</span>
+                        <span id="sidebar-accounts-count" class="text-white bg-blue-600/30 px-2 py-0.5 rounded-full border border-blue-500/30">12 Nodes</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace (Scaled smaller and closer) -->
+        <main class="lg:ml-64 p-4 md:p-8 max-w-5xl mx-auto flex-grow relative">
+            <header class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0c1430]/90 border-4 border-slate-900 rounded-[1.75rem] p-6 shadow-[5px_5px_0px_#0f172a]">
+                <div>
+                    <h2 class="text-2xl md:text-3.5xl font-black text-white tracking-tight mb-1 uppercase cartoon-shadow">
+                        The Inbox <span class="text-blue-400 underline decoration-wavy decoration-yellow-400">Chase</span>
+                    </h2>
+                    <p class="text-slate-300 text-xs font-semibold">
+                        Scanning latest logs over <span id="header-accounts-count" class="text-yellow-400 font-black text-sm">12</span> kitchen cabinets.
+                    </p>
+                </div>
+                <div class="flex-shrink-0 flex items-center gap-1.5 bg-yellow-400/10 px-3 py-1.5 rounded-xl border-2 border-yellow-400/30 text-yellow-300 font-black text-[10px] uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-exclamation text-amber-400"></i> Bug Alert: Safe
+                </div>
+            </header>
+
+            <!-- CONVERGENCE & MATCH ALERTER -->
+            <section id="common-section" class="hidden w-full pb-6">
+                <div class="w-full bg-gradient-to-r from-[#0d1533] to-[#121c45] border-4 border-slate-900 rounded-[1.75rem] p-6 shadow-[6px_6px_0px_#0f172a] flex flex-col gap-4 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 translate-x-8 -translate-y-6 text-slate-800/10 text-8xl font-black pointer-events-none select-none">
+                        OGGY
+                    </div>
+
+                    <div>
+                        <label class="text-[9px] font-black text-yellow-400 uppercase tracking-widest mb-1.5 block">CONVERGED MAIN SUBJECT LINE</label>
+                        <div class="relative group">
+                            <input id="common-subject-input" readonly
+                                class="w-full bg-slate-950 border-3 border-slate-900 rounded-xl py-3 pl-4 pr-12 text-white font-black text-xs focus:outline-none shadow-inner"
+                                placeholder="Inspecting mailbox layout sequence...">
+                            <button id="copy-btn" 
+                                class="absolute right-1.5 top-1/2 -translate-y-1/2 p-2 bg-yellow-400 hover:bg-yellow-300 text-slate-950 rounded-lg transition-all active:scale-90 border-2 border-slate-900 shadow-md">
+                                <i class="fa-solid fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                        <div class="flex-grow">
+                            <span class="text-[9px] text-slate-300 font-black uppercase tracking-widest block mb-1">Convergence Match Progress</span>
+                            <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden border-2 border-slate-900 p-0.5">
+                                <div id="match-bar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full w-0 rounded-full transition-all duration-500"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center px-4 py-2.5 bg-slate-950 rounded-xl border-2 border-slate-900 min-w-[100px] shadow-inner">
+                            <div class="text-center">
+                                <span class="text-[8px] text-blue-400 font-black uppercase tracking-widest block leading-none">Match Rate</span>
+                                <span id="match-percent" class="text-xl font-black text-blue-400 italic">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Muskan's Preview Trigger -->
+                    <div id="preview-trigger-container" class="hidden animate-slide mt-1 p-4 bg-emerald-500/10 rounded-xl border-3 border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-[3px_3px_0px_#000]">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 border-2 border-slate-900 flex-shrink-0 animate-bounce-slow">
+                                <i class="fa-solid fa-cat text-lg"></i>
+                            </div>
+                            <div>
+                                <h5 id="preview-trigger-title" class="text-xs font-black text-white leading-tight uppercase">Retrieved From Muskan's Node!</h5>
+                                <p id="preview-trigger-desc" class="text-[10px] text-slate-300 mt-0.5">Payload confirmed. Preview is gathered strictly from node <strong class="text-blue-400">musk9090</strong>.</p>
+                            </div>
+                        </div>
+                        <button id="show-preview-btn" class="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 text-white rounded-lg text-[10px] font-black uppercase tracking-wider transition-all border-2 border-slate-900 shadow-[2px_2px_0px_#000] active:scale-95 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-eye"></i> Show Mail Preview
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TARGET DOMAIN PANEL -->
+            <div class="flex flex-col gap-6">
+                <section class="w-full">
+                    <div class="bg-[#0c1430]/95 border-4 border-slate-900 rounded-[1.75rem] p-6 shadow-[6px_6px_0px_#0f172a] relative overflow-hidden">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start relative z-10">
+                            <div class="flex-grow w-full">
+                                <div class="flex items-center justify-between mb-3">
+                                    <label class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Target Domains (Cockroach Senders)</label>
+                                    <span class="text-[8px] bg-slate-900 border-2 border-slate-800 text-blue-400 px-2 py-0.5 rounded-full font-black">MULTIPLE INPUT</span>
+                                </div>
+                                <textarea id="domain-input" 
+                                    class="w-full h-28 bg-slate-950 border-3 border-slate-900 rounded-xl p-4 text-white placeholder:text-slate-650 focus:outline-none focus:border-blue-500 transition-all resize-none text-xs font-mono leading-relaxed shadow-inner"
+                                    placeholder="example-sender.com&#10;delivery-node.net"></textarea>
+                            </div>
+                            <div class="w-full lg:w-60 lg:pt-6 flex flex-col gap-3">
+                                <button id="sync-btn" 
+                                    class="group w-full py-3.5 bg-yellow-400 hover:bg-yellow-300 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 rounded-xl font-black text-xs flex items-center justify-center gap-2 transition-all border-3 border-slate-900 shadow-[3px_3px_0px_rgba(0,0,0,1)] active:scale-95">
+                                    <i class="fa-solid fa-cat group-hover:scale-110 transition-transform text-sm"></i>
+                                    <span class="tracking-widest uppercase">SYNC HOUSE NET</span>
+                                </button>
+                                <button id="clear-btn" class="hidden w-full py-2 text-slate-400 hover:text-rose-400 text-[10px] font-black transition-colors uppercase tracking-widest">
+                                    <i class="fa-solid fa-trash-can mr-1.5"></i> Clear Kitchen Table
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DATA STREAM RECEPTACLE -->
+                <section class="w-full">
+                    <div class="bg-[#0c1430]/95 border-4 border-slate-900 rounded-[1.75rem] overflow-hidden shadow-[6px_6px_0px_#0f172a] min-h-[380px] flex flex-col">
+                        <div class="px-6 py-4 border-b-3 border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/40">
+                            <h3 class="text-xs font-black text-white flex items-center gap-2 tracking-widest uppercase">
+                                <i class="fa-solid fa-bug text-yellow-400"></i> House Extraction Feed
+                                <div id="scan-progress" class="hidden h-2 w-24 bg-slate-950 rounded-full overflow-hidden border-2 border-slate-900 p-0.5">
+                                    <div class="h-full bg-blue-500 rounded-full animate-[loading_2s_infinite] w-1/2"></div>
+                                </div>
+                            </h3>
+                            
+                            <!-- Toggle Button for Spam -->
+                            <button id="toggle-spam-btn" class="hidden flex items-center gap-1.5 px-3 py-1.5 bg-slate-950 border-2 border-slate-900 text-[10px] font-black text-slate-400 hover:text-white rounded-lg transition-all active:scale-95 shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)]">
+                                <i id="toggle-spam-icon" class="fa-solid fa-eye-slash text-slate-500"></i>
+                                <span id="toggle-spam-text">Show Cockroach Spam</span>
+                                <span id="spam-counter" class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-1.5 py-0.5 rounded text-[9px]">0 Hidden</span>
+                            </button>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center py-16 text-center">
+                            <div class="w-16 h-16 bg-slate-950 rounded-full flex items-center justify-center mb-4 border-3 border-slate-900 shadow-[3px_3px_0px_#000] animate-bounce-slow">
+                                <i class="fa-solid fa-cookie text-2xl text-yellow-400"></i>
+                            </div>
+                            <h4 class="text-sm font-black text-white uppercase tracking-tight">No Chase Active</h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Provide domains and click "Sync House Net"</p>
+                        </div>
+
+                        <!-- Feed Results -->
+                        <div id="results-table-container" class="hidden">
+                            <div class="overflow-x-auto custom-scrollbar">
+                                <table class="w-full text-left border-collapse text-[11px]">
+                                    <thead>
+                                        <tr class="text-slate-400 text-[9px] uppercase tracking-widest font-black border-b-3 border-slate-900 bg-slate-950/20">
+                                            <th class="px-5 py-4">Node Tag</th>
+                                            <th class="px-5 py-4">Domain</th>
+                                            <th class="px-5 py-4">Inbox / Spam Logs (Last 3)</th>
+                                            <th class="px-5 py-4 text-right">Verification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="results-body" class="divide-y divide-slate-900/60">
+                                        <!-- Dynamic items -->
+                                    </tbody>
+                                end table
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- PREVIEW MODAL -->
+    <div id="preview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-all duration-300">
+        <div class="bg-[#0c1430] border-4 border-slate-900 w-full max-w-3xl rounded-[1.75rem] shadow-[8px_8px_0px_#0f172a] overflow-hidden flex flex-col max-h-[80vh] transform scale-95 transition-all duration-300">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b-3 border-slate-900 bg-slate-950/50 flex items-center justify-between">
+                <div>
+                    <span class="text-[9px] bg-blue-500/20 text-blue-400 border-2 border-slate-900 px-2 py-0.5 rounded-full font-black uppercase tracking-wider">Muskan Sharma Node Audit</span>
+                    <h3 id="modal-subject" class="text-base font-black text-white mt-1 line-clamp-1">Email Subject</h3>
+                </div>
+                <button id="close-modal-btn" class="w-10 h-10 rounded-full bg-slate-950 border-2 border-slate-900 hover:bg-slate-900 hover:text-white flex items-center justify-center transition-all shadow-md">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <!-- Metadata Panel -->
+            <div class="px-6 py-3 bg-slate-950/40 border-b-2 border-slate-900 flex flex-wrap gap-3 items-center text-[10px] text-slate-300 font-black uppercase tracking-wide">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-slate-500">Node:</span>
+                    <span id="modal-account" class="text-emerald-400 font-bold">musk9090</span>
+                </div>
+                <div class="w-1.5 h-1.5 rounded-full bg-slate-900"></div>
+                <div class="flex items-center gap-1.5">
+                    <span class="text-slate-500">Sync:</span>
+                    <span id="modal-time" class="text-white font-mono">Jun 8 @ 02:57 PM</span>
+                </div>
+                <div class="w-1.5 h-1.5 rounded-full bg-slate-900"></div>
+                <div class="flex items-center gap-1 bg-amber-400/20 text-amber-400 px-2 py-0.5 rounded border border-amber-400/30 text-[8px] font-black">
+                    <i class="fa-solid fa-lock"></i> Raw Safe View
+                </div>
+            </div>
+            <!-- Body Content -->
+            <div class="flex-grow overflow-y-auto p-6 bg-slate-950 relative min-h-[300px]">
+                <div id="modal-body-fallback" class="hidden text-slate-300 whitespace-pre-wrap leading-relaxed font-mono text-[11px]"></div>
+                <iframe id="modal-body-frame" class="w-full h-full min-h-[340px] border-0 rounded-xl bg-white hidden" sandbox="allow-same-origin"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERROR NOTIFICATION -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-rose-950 border-3 border-slate-900 text-rose-100 px-5 py-3 rounded-2xl shadow-[3px_3px_0px_#000] flex items-center gap-2.5 font-semibold text-xs">
+            <i class="fa-solid fa-circle-exclamation text-rose-400 text-xl"></i>
+            <div>
+                <p class="font-black uppercase text-[10px] tracking-wider">Node Sync Fault</p>
+                <p class="text-[11px] text-rose-300">Subject line wasn't found in musk9090 node.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            clientId: "998810876365-jktr21ut1ojev3vh30r0bdt9vfbtooc4.apps.googleusercontent.com",
+            clientSecret: "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",
+            accounts: [
+                { name: "agkartik8429", token: "1//0gesjD1QK4L1rCgYIARAAGBASNwF-L9Ir-DFo5-uUhfAIpJ1Fqu7foJmdN_gNTlcl_6sHYhXNfka1hsIpZfV0tVIh3Yas92MFvA0" },
+                { name: "liveseedforall", token: "1//0gNNNmMZrjuhzCgYIARAAGBASNwF-L9Ire_zIx2bbnlq3L0wEhELUUmAua3zMtZqCOrLz1RnSu3ZG9DDojjURxcmtEVHkObrknVY" },
+                { name: "agkar9090", token: "1//0gQeu8MkAUYg_CgYIARAAGBASNwF-L9IrmgY1f9Mw1VUva2vfXI0Lbh2HRmslJfIu2cALxPNS6QQBtq-B4LcKId-vFfB69ZJlZtI" },
+                { name: "ashwinbetterinbox", token: "1//0gaBSbBHlfJDiCgYIARAAGBASNwF-L9IrignXj3WeCLd9hkymbenMDFvOhCZLk0RygSqPe2yFlQSsAsIoO7DoLEzXAfSuCkJOm-E" },
+                { name: "musk9090", token: "1//0grSCGJkLq3-iCgYIARAAGBASNwF-L9IrGQ6WKKnQqFsF3mdEby7w7_61P7gvzDJOnffzFYmb3IgglPuk6HbGoyPhYoU2DphePG0" },
+                { name: "liveseedacc", token: "1//0gjFxd6-S5Hp_CgYIARAAGBASNwF-L9IrZVm2MGQUcZWzEXMd_O9U386ObC549czcddU4yADXCp5douRWj5lAc-y2msVcQN9yotk" },
+                { name: "markanthony", token: "1//0gO8mn3pPxlyVCgYIARAAGBASNwF-L9Irn7uzxcpYEL6PfXBFi0W02XFgQapUoHrhW4ZjCdKlMMh9jkQUUtkD7a_yVk0u08QtiUQ" },
+                { name: "liveseedmm", token: "1//0gCjcgsRwdJdjCgYIARAAGBASNwF-L9IrbPt_O9h28YsFQDhUPvhKrw9R1gBqjaoMwpcViwO_KM4QbYSX_xCazjZCk-a5Zr4w6sc" },
+                { name: "arcsan", token: "1//0gLPQLVQXOOdICgYIARAAGBASNwF-L9IrOLm45i-Unbqj4R1cEzcXArQavRMNChkkaAF31QRuBWMpDf3JnvvYEI38HxmFFkxjNQI" },
+                { name: "ashwinsiropn", token: "1//0g28Ag_PhAIfKCgYIARAAGBASNwF-L9Ir7RmQ1p9qJvw0NkMak89UvJSoF16uJ-wUwQd4HxfcINB_MXEFgMm_2lNdb7erKs8fTvE" },
+                { name: "nnon", token: "1//0g6JPvfm-KmumCgYIARAAGBASNwF-L9Ir8m9zW7lyBwp9LhnfDXnTnfix2rl-uT8WO2YXHm4zkrxz1bPl90446GJHm9UneF8tQZs" },
+                { name: "riyasri", token: "1//0ggPC_2ambv59CgYIARAAGBASNwF-L9IrNHjXjPH0bXA1fguO7m5-qZQ_j0jbI9QpREDOzqrP4XuoBSnpwKSy5e6cJd8JJsjljiU" }
+            ]
+        };
+
+        // Inject dynamic values
+        document.getElementById('sidebar-accounts-count').textContent = `${CONFIG.accounts.length} Nodes`;
+        document.getElementById('header-accounts-count').textContent = CONFIG.accounts.length;
+
+        const dom = {
+            input: document.getElementById('domain-input'),
+            sync: document.getElementById('sync-btn'),
+            clear: document.getElementById('clear-btn'),
+            table: document.getElementById('results-table-container'),
+            body: document.getElementById('results-body'),
+            empty: document.getElementById('empty-state'),
+            progress: document.getElementById('scan-progress'),
+            commonSec: document.getElementById('common-section'),
+            commonInput: document.getElementById('common-subject-input'),
+            copy: document.getElementById('copy-btn'),
+            percent: document.getElementById('match-percent'),
+            matchBar: document.getElementById('match-bar'),
+            
+            toggleSpamBtn: document.getElementById('toggle-spam-btn'),
+            toggleSpamIcon: document.getElementById('toggle-spam-icon'),
+            toggleSpamText: document.getElementById('toggle-spam-text'),
+            spamCounter: document.getElementById('spam-counter'),
+
+            previewTrigger: document.getElementById('preview-trigger-container'),
+            previewTriggerTitle: document.getElementById('preview-trigger-title'),
+            previewTriggerDesc: document.getElementById('preview-trigger-desc'),
+            showPreviewBtn: document.getElementById('show-preview-btn'),
+            previewModal: document.getElementById('preview-modal'),
+            closeModalBtn: document.getElementById('close-modal-btn'),
+            modalSubject: document.getElementById('modal-subject'),
+            modalAccount: document.getElementById('modal-account'),
+            modalTime: document.getElementById('modal-time'),
+            modalBodyFrame: document.getElementById('modal-body-frame'),
+            modalBodyFallback: document.getElementById('modal-body-fallback'),
+            toast: document.getElementById('toast-notification'),
+            oggyCelebrate: document.getElementById('oggy-celebration')
+        };
+
+        let lastResults = [];
+        let showSpamEmails = false;
+
+        // Custom Retro Web Audio API Synth to play dynamic victory sound on 100% Match
+        function playVictorySound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const now = ctx.currentTime;
+                
+                // Note 1: Fast ascending cute synth sound
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(523.25, now); // C5
+                gain1.gain.setValueAtTime(0.08, now);
+                gain1.gain.exponentialRampToValueAtTime(0.005, now + 0.12);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.12);
+                
+                // Note 2
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                gain2.gain.setValueAtTime(0.08, now + 0.08);
+                gain2.gain.exponentialRampToValueAtTime(0.005, now + 0.2);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(now + 0.08);
+                osc2.stop(now + 0.2);
+                
+                // Note 3: Triumphant final chime
+                const osc3 = ctx.createOscillator();
+                const gain3 = ctx.createGain();
+                osc3.type = 'sine';
+                osc3.frequency.setValueAtTime(783.99, now + 0.16); // G5
+                gain3.gain.setValueAtTime(0.12, now + 0.16);
+                gain3.gain.exponentialRampToValueAtTime(0.005, now + 0.4);
+                osc3.connect(gain3);
+                gain3.connect(ctx.destination);
+                osc3.start(now + 0.16);
+                osc3.stop(now + 0.4);
+            } catch (e) {
+                console.warn("AudioContext initialization blocked or unsupported: ", e);
+            }
+        }
+
+        async function getAccess(refreshToken) {
+            const res = await fetch('https://oauth2.googleapis.com/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    client_id: CONFIG.clientId,
+                    client_secret: CONFIG.clientSecret,
+                    refresh_token: refreshToken,
+                    grant_type: 'refresh_token',
+                }),
+            });
+            const data = await res.json();
+            if (data.error) throw new Error(data.error);
+            return data.access_token;
+        }
+
+        function decodeBase64(data) {
+            try {
+                const base64 = data.replace(/-/g, '+').replace(/_/g, '/');
+                return decodeURIComponent(escape(window.atob(base64)));
+            } catch (e) {
+                try {
+                    return window.atob(data.replace(/-/g, '+').replace(/_/g, '/'));
+                } catch (err) {
+                    return "";
+                }
+            }
+        }
+
+        function extractGmailBody(payload) {
+            if (!payload) return "";
+            if (payload.body && payload.body.data) {
+                return decodeBase64(payload.body.data);
+            }
+            if (payload.parts) {
+                let htmlPart = payload.parts.find(p => p.mimeType === 'text/html');
+                if (htmlPart && htmlPart.body && htmlPart.body.data) {
+                    return decodeBase64(htmlPart.body.data);
+                }
+                let plainPart = payload.parts.find(p => p.mimeType === 'text/plain');
+                if (plainPart && plainPart.body && plainPart.body.data) {
+                    return decodeBase64(plainPart.body.data);
+                }
+                for (let part of payload.parts) {
+                    let recursiveResult = extractGmailBody(part);
+                    if (recursiveResult) return recursiveResult;
+                }
+            }
+            return "";
+        }
+
+        async function fetchSubjects(accessToken, domain) {
+            try {
+                const q = encodeURIComponent(`${domain} (in:inbox OR in:spam)`);
+                const listRes = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages?q=${q}&maxResults=3`, {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
+                const listData = await listRes.json();
+
+                if (!listData.messages || listData.messages.length === 0) return [];
+
+                return await Promise.all(listData.messages.map(async (m) => {
+                    const msgRes = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${m.id}`, {
+                        headers: { Authorization: `Bearer ${accessToken}` }
+                    });
+                    const msgData = await msgRes.json();
+                    
+                    const headers = msgData.payload.headers;
+                    const subject = headers.find(h => h.name === 'Subject')?.value || "(Empty Subject)";
+                    
+                    const dateRaw = headers.find(h => h.name === 'Date')?.value || "";
+                    const dateObj = new Date(dateRaw);
+                    const date = isNaN(dateObj) ? "" : dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                    const time = isNaN(dateObj) ? "" : dateObj.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+
+                    const snippet = msgData.snippet || "";
+                    let parsedBody = "";
+                    try {
+                        parsedBody = extractGmailBody(msgData.payload);
+                    } catch (bodyError) {
+                        parsedBody = snippet;
+                    }
+
+                    const labels = msgData.labelIds || [];
+                    let landing = 'OTHER';
+                    if (labels.includes('SPAM')) {
+                        landing = 'SPAM';
+                    } else if (labels.includes('INBOX')) {
+                        if (labels.includes('CATEGORY_PROMOTIONS')) {
+                            landing = 'PROMOTIONS';
+                        } else if (labels.includes('CATEGORY_SOCIAL')) {
+                            landing = 'SOCIAL';
+                        } else if (labels.includes('CATEGORY_UPDATES')) {
+                            landing = 'UPDATES';
+                        } else if (labels.includes('CATEGORY_FORUMS')) {
+                            landing = 'FORUMS';
+                        } else {
+                            landing = 'PRIMARY';
+                        }
+                    }
+
+                    return { subject, date, time, landing, snippet, body: parsedBody || snippet };
+                }));
+            } catch (e) { return null; }
+        }
+
+        function calculateCommonality(results) {
+            if (results.length === 0) return;
+
+            const accountMaps = results.reduce((acc, curr) => {
+                if (!acc[curr.accName]) acc[curr.accName] = new Set();
+                curr.subjects.forEach(s => {
+                    if (s.landing !== 'SPAM') {
+                        acc[curr.accName].add(s.subject);
+                    }
+                });
+                return acc;
+            }, {});
+
+            const accountNames = Object.keys(accountMaps);
+            const totalAccounts = CONFIG.accounts.length;
+
+            if (accountNames.length < totalAccounts) {
+                dom.percent.textContent = "...";
+                dom.commonInput.value = "Chasing down data convergence...";
+                return;
+            }
+
+            const allSubjectsAcrossAccounts = [].concat(...Object.values(accountMaps).map(set => Array.from(set)));
+            const frequency = {};
+            allSubjectsAcrossAccounts.forEach(s => frequency[s] = (frequency[s] || 0) + 1);
+
+            let topSubject = "";
+            let topCount = 0;
+            for (const [subj, count] of Object.entries(frequency)) {
+                if (count > topCount) {
+                    topCount = count;
+                    topSubject = subj;
+                }
+            }
+
+            const matchRate = Math.round((topCount / totalAccounts) * 100);
+            dom.percent.textContent = `${matchRate}%`;
+            dom.matchBar.style.width = `${matchRate}%`;
+            
+            if (topCount === totalAccounts) {
+                dom.commonInput.value = topSubject;
+                dom.percent.className = "text-xl font-black text-emerald-400 italic cartoon-shadow";
+                
+                // Play sound and show the celebrate card if it was hidden
+                if (dom.oggyCelebrate.classList.contains('opacity-0')) {
+                    dom.oggyCelebrate.classList.remove('translate-x-96', 'opacity-0', 'pointer-events-none');
+                    dom.oggyCelebrate.classList.add('translate-x-0', 'opacity-100');
+                    playVictorySound();
+                }
+            } else {
+                dom.oggyCelebrate.classList.add('translate-x-96', 'opacity-0', 'pointer-events-none');
+                dom.oggyCelebrate.classList.remove('translate-x-0', 'opacity-100');
+
+                if (topCount > 1) {
+                    dom.commonInput.value = `Partial Match: "${topSubject}"`;
+                    dom.percent.className = "text-xl font-black text-blue-400 italic cartoon-shadow";
+                } else {
+                    dom.commonInput.value = "No shared subject lines detected inside this house.";
+                    dom.percent.textContent = "0%";
+                    dom.percent.className = "text-xl font-black text-slate-500 italic cartoon-shadow";
+                }
+            }
+
+            const muskanAccountName = "musk9090";
+            const muskanResult = results.find(item => item.accName === muskanAccountName);
+            const hasMuskanMails = muskanResult && muskanResult.subjects && muskanResult.subjects.length > 0;
+
+            if (hasMuskanMails) {
+                dom.previewTrigger.classList.remove('hidden');
+                
+                if (topCount === totalAccounts) {
+                    dom.previewTriggerTitle.textContent = "100% Convergence Match Achieved";
+                    dom.previewTriggerDesc.innerHTML = `Payload verified across all network nodes. Preview is pulled strictly from <strong class="text-blue-400">musk9090</strong>.`;
+                } else {
+                    dom.previewTriggerTitle.textContent = "Mail Detected in Muskan's Account";
+                    dom.previewTriggerDesc.innerHTML = `Mail landed successfully on <strong class="text-blue-400">Muskan Sharma's</strong> node (musk9090).`;
+                }
+            } else {
+                dom.previewTrigger.classList.add('hidden');
+            }
+
+            updateSpamCounterUI();
+        }
+
+        function updateSpamCounterUI() {
+            const spamElements = document.querySelectorAll('.mail-item-spam');
+            const spamCount = spamElements.length;
+
+            if (spamCount > 0) {
+                dom.toggleSpamBtn.classList.remove('hidden');
+                dom.spamCounter.textContent = `${spamCount} Hidden`;
+                dom.spamCounter.classList.remove('hidden');
+            } else {
+                dom.toggleSpamBtn.classList.add('hidden');
+            }
+
+            spamElements.forEach(el => {
+                if (showSpamEmails) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+        }
+
+        function renderRow(accName, domain, subjects) {
+            const row = document.createElement('tr');
+            row.className = "hover:bg-blue-500/[0.04] transition-colors group animate-slide";
+            
+            const isMuskan = (accName === 'musk9090');
+            const accountLabel = isMuskan 
+                ? `<span class="text-blue-400 font-black text-[11px] tracking-tight flex items-center gap-1.5"><i class="fa-solid fa-cat text-[9px] text-yellow-400 animate-pulse"></i>${accName}</span>` 
+                : `<span class="text-slate-200 font-black text-[11px] tracking-tight">${accName}</span>`;
+
+            const hasData = subjects && subjects.length > 0;
+            const statusHtml = hasData 
+                ? `<div class="flex items-center gap-1.5 justify-end text-[8px] font-black text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full border border-emerald-400/20">VERIFIED INTERACTION</div>`
+                : subjects === null 
+                ? `<div class="flex items-center gap-1.5 justify-end text-[8px] font-black text-rose-400 bg-rose-400/10 px-2 py-1 rounded-full border border-rose-400/20 text-center">AUTH EXPIRED</div>`
+                : `<div class="flex items-center gap-1.5 justify-end text-[8px] font-black text-slate-500 bg-slate-800 px-2 py-1 rounded-full">NO DATA</div>`;
+
+            let subjectsHtml = '';
+            if (subjects === null) {
+                subjectsHtml = `<span class="text-rose-400/80 text-[10px] font-bold">Please update authentication tokens for ${accName}</span>`;
+            } else if (subjects.length === 0) {
+                subjectsHtml = `<span class="text-slate-600 text-[10px] italic font-semibold">Domain match not identified in last inbox scans</span>`;
+            } else {
+                subjectsHtml = subjects.map((s, i) => {
+                    let badgeColor = "bg-slate-500/10 text-slate-400 border border-slate-500/20";
+                    let folderIcon = "fa-folder";
+                    let isSpam = false;
+                    
+                    if (s.landing === 'PRIMARY') {
+                        badgeColor = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+                        folderIcon = "fa-inbox";
+                    } else if (s.landing === 'SPAM') {
+                        badgeColor = "bg-rose-500/10 text-rose-400 border border-rose-500/20";
+                        folderIcon = "fa-bug";
+                        isSpam = true;
+                    } else if (s.landing === 'PROMOTIONS') {
+                        badgeColor = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+                        folderIcon = "fa-tags";
+                    } else if (s.landing === 'SOCIAL') {
+                        badgeColor = "bg-sky-500/10 text-sky-400 border border-sky-500/20";
+                        folderIcon = "fa-users";
+                    } else if (s.landing === 'UPDATES') {
+                        badgeColor = "bg-purple-500/10 text-purple-400 border border-purple-500/20";
+                        folderIcon = "fa-bell";
+                    } else if (s.landing === 'FORUMS') {
+                        badgeColor = "bg-teal-500/10 text-teal-400 border border-teal-500/20";
+                        folderIcon = "fa-comments";
+                    }
+
+                    const spamClass = isSpam ? 'mail-item-spam hidden' : '';
+
+                    return `
+                        <div class="mail-item ${spamClass} flex flex-col md:flex-row md:items-center justify-between gap-2 mb-1.5 p-2 rounded-xl bg-slate-900/60 border border-slate-900 text-[10px] hover:border-blue-500/30 transition-all">
+                            <div class="flex items-center gap-2 overflow-hidden">
+                                <span class="w-4.5 h-4.5 flex-shrink-0 flex items-center justify-center text-[7px] font-black bg-slate-850 text-slate-400 rounded-md border border-slate-800">${i+1}</span>
+                                <span class="text-slate-100 font-bold truncate max-w-[240px]">${s.subject}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-shrink-0 justify-end">
+                                <span class="inline-flex items-center gap-1 text-[8px] font-black uppercase px-1.5 py-0.5 rounded ${badgeColor}">
+                                    <i class="fa-solid ${folderIcon} text-[7px]"></i> ${s.landing}
+                                </span>
+                                <span class="text-[9px] font-black text-blue-400 flex-shrink-0 italic">${s.date} @ ${s.time}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            row.innerHTML = `
+                <td class="px-5 py-4">${accountLabel}</td>
+                <td class="px-5 py-4"><span class="text-white font-mono text-[10px] font-black bg-slate-900 px-2 py-0.5 rounded border border-slate-800">${domain}</span></td>
+                <td class="px-5 py-4">${subjectsHtml}</td>
+                <td class="px-5 py-4 text-right">${statusHtml}</td>
+            `;
+            dom.body.appendChild(row);
+        }
+
+        // Close Celebration pop-up manually
+        document.getElementById('close-celebration-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            dom.oggyCelebrate.classList.add('translate-x-96', 'opacity-0', 'pointer-events-none');
+            dom.oggyCelebrate.classList.remove('translate-x-0', 'opacity-100');
+        });
+
+        dom.toggleSpamBtn.addEventListener('click', () => {
+            showSpamEmails = !showSpamEmails;
+            const spamElements = document.querySelectorAll('.mail-item-spam');
+
+            if (showSpamEmails) {
+                dom.toggleSpamIcon.className = "fa-solid fa-eye text-rose-400 animate-pulse";
+                dom.toggleSpamText.textContent = "Hide Cockroach Spam";
+                dom.spamCounter.textContent = `${spamElements.length} Revealed`;
+                dom.spamCounter.className = "bg-rose-500/20 text-rose-300 border border-rose-500/30 px-1.5 py-0.5 rounded text-[9px]";
+                spamElements.forEach(el => el.classList.remove('hidden'));
+            } else {
+                dom.toggleSpamIcon.className = "fa-solid fa-eye-slash text-slate-500";
+                dom.toggleSpamText.textContent = "Show Cockroach Spam";
+                dom.spamCounter.textContent = `${spamElements.length} Hidden`;
+                dom.spamCounter.className = "bg-rose-500/10 text-rose-400 border border-rose-500/20 px-1.5 py-0.5 rounded text-[9px]";
+                spamElements.forEach(el => el.classList.add('hidden'));
+            }
+        });
+
+        dom.sync.addEventListener('click', async () => {
+            const domains = dom.input.value.split('\n').filter(d => d.trim() !== '');
+            if (domains.length === 0) return;
+
+            dom.sync.disabled = true;
+            dom.sync.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i><span class="tracking-widest">CHASING DOWN BUGS...</span>`;
+            dom.empty.classList.add('hidden');
+            dom.table.classList.remove('hidden');
+            dom.clear.classList.remove('hidden');
+            dom.commonSec.classList.remove('hidden');
+            dom.previewTrigger.classList.add('hidden');
+            dom.body.innerHTML = '';
+            lastResults = [];
+
+            // Hide previous celebration state instantly before run
+            dom.oggyCelebrate.classList.add('translate-x-96', 'opacity-0', 'pointer-events-none');
+            dom.oggyCelebrate.classList.remove('translate-x-0', 'opacity-100');
+
+            for (const domain of domains) {
+                const trimmed = domain.trim();
+                
+                await Promise.all(CONFIG.accounts.map(async (acc) => {
+                    try {
+                        const token = await getAccess(acc.token);
+                        const subjects = await fetchSubjects(token, trimmed);
+                        renderRow(acc.name, trimmed, subjects);
+                        if (subjects && subjects.length > 0) {
+                            lastResults.push({ accName: acc.name, subjects });
+                        }
+                    } catch (e) {
+                        renderRow(acc.name, trimmed, null);
+                    }
+                }));
+            }
+
+            calculateCommonality(lastResults);
+            dom.sync.disabled = false;
+            dom.sync.innerHTML = `<i class="fa-solid fa-cat"></i><span class="tracking-widest uppercase">SYNC HOUSE NET</span>`;
+        });
+
+        function showToast() {
+            dom.toast.classList.remove('translate-y-12', 'opacity-0');
+            dom.toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                dom.toast.classList.remove('translate-y-0', 'opacity-100');
+                dom.toast.classList.add('translate-y-12', 'opacity-0');
+            }, 5000);
+        }
+
+        dom.showPreviewBtn.addEventListener('click', () => {
+            if (lastResults.length === 0) return;
+
+            const targetSubject = dom.commonInput.value;
+            const muskanAccountName = "musk9090";
+            const muskanResult = lastResults.find(item => item.accName === muskanAccountName);
+
+            if (!muskanResult) {
+                showToast();
+                return;
+            }
+
+            let matchedEmail = muskanResult.subjects.find(s => s.subject === targetSubject);
+            if (!matchedEmail && muskanResult.subjects.length > 0) {
+                matchedEmail = muskanResult.subjects[0];
+            }
+
+            if (matchedEmail) {
+                dom.modalSubject.textContent = matchedEmail.subject;
+                dom.modalAccount.textContent = "musk9090 (Muskan Sharma)";
+                dom.modalTime.textContent = `${matchedEmail.date} @ ${matchedEmail.time}`;
+
+                if (matchedEmail.body && matchedEmail.body.includes('<')) {
+                    dom.modalBodyFallback.classList.add('hidden');
+                    dom.modalBodyFrame.classList.remove('hidden');
+
+                    const disableLinkInteractionsCSS = `
+                        <style>
+                            a, a *, [href], [onclick], button, input[type="submit"] {
+                                pointer-events: none !important;
+                                cursor: default !important;
+                                text-decoration: none !important;
+                            }
+                        </style>
+                    `;
+                    dom.modalBodyFrame.srcdoc = disableLinkInteractionsCSS + matchedEmail.body;
+                } else {
+                    dom.modalBodyFrame.classList.add('hidden');
+                    dom.modalBodyFallback.classList.remove('hidden');
+                    dom.modalBodyFallback.textContent = matchedEmail.body || matchedEmail.snippet || "No HTML body structure parsed.";
+                }
+
+                dom.previewModal.classList.remove('hidden');
+                setTimeout(() => {
+                    dom.previewModal.classList.remove('opacity-0');
+                    dom.previewModal.querySelector('div').classList.remove('scale-95');
+                }, 50);
+            } else {
+                showToast();
+            }
+        });
+
+        const hidePreviewModal = () => {
+            dom.previewModal.classList.add('opacity-0');
+            dom.previewModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                dom.previewModal.classList.add('hidden');
+                dom.modalBodyFrame.srcdoc = "";
+            }, 300);
+        };
+
+        dom.closeModalBtn.addEventListener('click', hidePreviewModal);
+        dom.previewModal.addEventListener('click', (e) => {
+            if (e.target === dom.previewModal) hidePreviewModal();
+        });
+
+        dom.copy.addEventListener('click', () => {
+            const val = dom.commonInput.value;
+            if (val && !val.includes('No shared') && !val.includes('Analyzing') && !val.includes('Chasing')) {
+                const el = document.createElement("textarea");
+                el.value = val;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand("copy");
+                document.body.removeChild(el);
+                
+                const originalIcon = dom.copy.innerHTML;
+                dom.copy.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                dom.copy.className = dom.copy.className.replace('bg-yellow-400', 'bg-emerald-500').replace('text-slate-950', 'text-white');
+                setTimeout(() => {
+                    dom.copy.innerHTML = originalIcon;
+                    dom.copy.className = dom.copy.className.replace('bg-emerald-500', 'bg-yellow-400').replace('text-white', 'text-slate-950');
+                }, 2000);
+            }
+        });
+
+        dom.clear.addEventListener('click', () => {
+            dom.body.innerHTML = '';
+            dom.table.classList.add('hidden');
+            dom.empty.classList.remove('hidden');
+            dom.clear.classList.add('hidden');
+            dom.commonSec.classList.add('hidden');
+            dom.previewTrigger.classList.add('hidden');
+            dom.toggleSpamBtn.classList.add('hidden');
+            dom.input.value = '';
+            lastResults = [];
+            showSpamEmails = false;
+            
+            // Hide Oggy celebrate pop-up
+            dom.oggyCelebrate.classList.add('translate-x-96', 'opacity-0', 'pointer-events-none');
+            dom.oggyCelebrate.classList.remove('translate-x-0', 'opacity-100');
+        });
+    </script>
+</body>
+</html>
