@@ -237,9 +237,10 @@
                                             <th class="px-5 py-4">Node Tag</th>
                                             <th class="px-5 py-4">Domain</th>
                                             <th class="px-5 py-4">Captured Logs (Last 3)</th>
+                                            <th class="px-5 py-4">Delivery Speed</th>
                                             <th class="px-5 py-4 text-right">Verification</th>
                                         </tr>
-                                    </tbody>
+                                    </thead>
                                     <tbody id="results-body" class="divide-y divide-slate-900/60"></tbody>
                                 </table>
                             </div>
@@ -453,7 +454,7 @@
                 const newestDate = parseDateFromReceived(receivedHeaders[0].value);
                 const oldestDate = parseDateFromReceived(receivedHeaders[receivedHeaders.length - 1].value);
 
-                if (!newestDate || !oldoldestDate) {
+                if (!newestDate || !oldestDate) {
                     const dateHeader = headers.find(h => h.name.toLowerCase() === 'date')?.value;
                     if (dateHeader && newestDate) {
                         const dHeaderObj = new Date(dateHeader);
@@ -685,6 +686,13 @@
                 <td class="px-5 py-4">${accountLabel}</td>
                 <td class="px-5 py-4"><span class="text-white font-mono text-[10px] font-black bg-slate-900 px-2 py-0.5 rounded border border-slate-800">${domain}</span></td>
                 <td class="px-5 py-4">${subjectsHtml}</td>
+                <td class="px-5 py-4">
+                    ${hasData && subjects[0] ? `
+                        <span class="px-2 py-1 bg-slate-950 text-yellow-400 border border-slate-800 rounded font-mono font-bold flex items-center gap-1 w-max text-[10px]">
+                            <i class="fa-solid fa-stopwatch"></i> ${subjects[0].deliveryStatus}
+                        </span>
+                    ` : `<span class="text-slate-600">—</span>`}
+                </td>
                 <td class="px-5 py-4 text-right">${statusHtml}</td>
             `;
             dom.body.appendChild(row);
